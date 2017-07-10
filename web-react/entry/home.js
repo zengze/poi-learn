@@ -3,7 +3,31 @@ import React, { Component } from 'react';
 
 import { Button, Table, Modal } from 'antd';
 
+import * as api from '../redux/services/api';
+
 class Index extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: [
+        {
+          key: '1',
+          name: '胡彦斌',
+          age: 32,
+          address: '西湖区湖底公园1号'
+        }, {
+          key: '2',
+          name: '吴彦祖',
+          age: 42,
+          address: '西湖区湖底公园2号'
+        }],
+    }
+  }
+
+  componentDidMount() {
+
+  }
 
   _tableTitle() {
     return (
@@ -37,27 +61,20 @@ class Index extends Component {
   }
 
   _export() {
+    const { data } = this.state;
     Modal.confirm({
       title: '确定要导出吗',
-      onOk() {},
+      onOk() {
+        api.post('/export', {
+          data: data
+        });
+      },
       onCancel() {},
     });
   }
 
   render() {
-
-    const data = [
-      {
-        key: '1',
-        name: '胡彦斌',
-        age: 32,
-        address: '西湖区湖底公园1号'
-      }, {
-        key: '2',
-        name: '胡彦祖',
-        age: 42,
-        address: '西湖区湖底公园1号'
-      }];
+    const { data } = this.state;
 
     const columns = [
       {
@@ -72,7 +89,8 @@ class Index extends Component {
         title: '住址',
         dataIndex: 'address',
         key: 'address',
-      }];
+      }
+    ];
 
     return (
       <div>
