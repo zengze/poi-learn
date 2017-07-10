@@ -65,8 +65,11 @@ class Index extends Component {
     Modal.confirm({
       title: '确定要导出吗',
       onOk() {
-        api.post('/export', {
-          data: data
+        api.get('/export', {
+          data: JSON.stringify(data)
+        })
+        .then((res) => {
+          console.log(JSON.parse(res.data),'JSON');
         });
       },
       onCancel() {},
