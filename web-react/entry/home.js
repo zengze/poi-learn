@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 
 import { Button, Table, Modal } from 'antd';
 
-import * as api from '../redux/services/api';
-
 class Index extends Component {
 
   constructor(props) {
@@ -34,13 +32,13 @@ class Index extends Component {
       <div style={{  textAlign: 'center' }}>
         <span style={{ fontSize: 20 }}>测试导入导出功能</span>
         <span style={{ float: 'right' }}>
-          <Button
+          {/* <Button
             size="large"
             type="primary"
             style={{ marginRight: 10 }}
             onClick={() => this._import()}>
             导入
-          </Button>
+          </Button> */}
           <Button
             size="large"
             type="primary"
@@ -65,12 +63,7 @@ class Index extends Component {
     Modal.confirm({
       title: '确定要导出吗',
       onOk() {
-        api.get('/export', {
-          data: JSON.stringify(data)
-        })
-        .then((res) => {
-          console.log(JSON.parse(res.data),'JSON');
-        });
+        location.href = '/poi-learn/export';
       },
       onCancel() {},
     });
