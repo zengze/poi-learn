@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:security="http://www.springframework.org/schema/security"
+	   xmlns:p="http://www.springframework.org/schema/p"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/security
+		http://www.springframework.org/schema/security/spring-security-3.1.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<bean id="authorizeImpl" class="happy.base.security.AuthorizeImpl">
+	</bean>
+	<bean id="userRoleFlag" class="java.lang.String">
+		<constructor-arg value="xx"/>
+	</bean>
+
+	<bean id="password" class="java.lang.String">
+		<constructor-arg value="myadmin"/>
+	</bean>
+	<bean id="username" class="java.lang.String">
+		<constructor-arg value="myadmin"/>
+	</bean>
+
+	<security:http auto-config="true" use-expressions="true" access-denied-page="/html_modules/login.html?error=false" >
+		<security:intercept-url pattern="/html_modules/login.html" access="permitAll" />
+		<security:intercept-url pattern="/public/dist/login.js" access="permitAll" />
+		<security:intercept-url pattern="/public/dist/common.js" access="permitAll" />
+		<security:intercept-url pattern="/public/dist/common.css" access="permitAll" />
+		<security:intercept-url pattern="/public/dist/antd.css.map" access="permitAll" />
+		<security:intercept-url pattern="/public/dist/*.png" access="permitAll" />
+		<security:intercept-url pattern="/public/dist/*.jpg" access="permitAll" />
+		<security:intercept-url pattern="/public/dist/*.gif" access="permitAll" />
+		<security:intercept-url pattern="/public/dist/*.jpeg" access="permitAll" />
+		<security:intercept-url pattern="/public/dist/*.woff" access="permitAll" />
+		<security:intercept-url pattern="/public/dist/*.woff2" access="permitAll" />
+		<security:intercept-url pattern="/public/dist/*.ttf" access="permitAll" />
+		<security:intercept-url pattern="/public/dist/*.eot" access="permitAll" />
+		<security:intercept-url pattern="/public/dist/*.svg" access="permitAll" />
+		<security:intercept-url pattern="/public/images/*" access="permitAll" />
+		<security:form-login login-page="/html_modules/login.html" authentication-failure-url="/html_modules/login.html?error=true" />
+		<security:intercept-url pattern="/html_modules/examin_container.html" access="hasRole('ROLE_HTML')" />
+		<security:intercept-url pattern="/html_modules/examin_archived.html" access="hasRole('ROLE_HTML')" />
+		<security:intercept-url pattern="/html_modules/examin_unarchive.html" access="hasRole('ROLE_HTML')" />
+		<security:intercept-url pattern="/html_modules/examin_shenpi.html" access="hasRole('ROLE_HTML')" />
+		<security:intercept-url pattern="/xx" access="hasRole('ROLE_USER')"  />
+		<security:remember-me key="hello.group1" services-ref="warsSharedTokenBasedRememberMeServices" />
+	</security:http>
+</beans>
