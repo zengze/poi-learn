@@ -3,11 +3,14 @@ import React, { Component } from 'react';
 
 import { Button, Table, Modal } from 'antd';
 
+import * as api from '../redux/services/api';
+
 class Index extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      year: 2016,
       data: [
         {
           key: '1',
@@ -19,7 +22,8 @@ class Index extends Component {
           name: '吴彦祖',
           age: 42,
           address: '西湖区湖底公园2号'
-        }],
+        }
+      ],
     }
   }
 
@@ -59,11 +63,15 @@ class Index extends Component {
   }
 
   _export() {
-    const { data } = this.state;
+    const { year, data } = this.state;
     Modal.confirm({
       title: '确定要导出吗',
       onOk() {
-        location.href = '/poi-learn/export';
+        api.post('/export', {
+          year: year,
+          data: JSON.stringify(data),
+        });
+        // location.href = '/poi-learn/export';
       },
       onCancel() {},
     });
@@ -90,6 +98,11 @@ class Index extends Component {
 
     return (
       <div>
+        <form action="../export" method="post">
+          <p>year: <input type="text" name="year" value={2016} /></p>
+          <p>data: <input type="text" name="data" value={JSON.stringify(data)} /></p>
+          <input type="submit" value="Submit" />
+        </form>
         <div style={{ padding: '20px 50px', minWidth: 800 }}>
           <Table
             bordered
