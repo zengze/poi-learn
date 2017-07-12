@@ -27,22 +27,11 @@ class Index extends Component {
     }
   }
 
-  componentDidMount() {
-
-  }
-
   _tableTitle() {
     return (
       <div style={{  textAlign: 'center' }}>
         <span style={{ fontSize: 20 }}>测试导入导出功能</span>
         <span style={{ float: 'right' }}>
-          {/* <Button
-            size="large"
-            type="primary"
-            style={{ marginRight: 10 }}
-            onClick={() => this._import()}>
-            导入
-          </Button> */}
           <Button
             size="large"
             type="primary"
@@ -54,23 +43,11 @@ class Index extends Component {
     )
   }
 
-  _import() {
-    Modal.confirm({
-      title: '确定要导入吗',
-      onOk() {},
-      onCancel() {},
-    });
-  }
-
   _export() {
-    const { year, data } = this.state;
     Modal.confirm({
       title: '确定要导出吗',
       onOk() {
-        api.post('/export', {
-          year: year,
-          data: JSON.stringify(data),
-        });
+        document.getElementById("formExcel").submit();
         // location.href = '/poi-learn/export';
       },
       onCancel() {},
@@ -78,7 +55,7 @@ class Index extends Component {
   }
 
   render() {
-    const { data } = this.state;
+    const { year, data } = this.state;
 
     const columns = [
       {
@@ -98,10 +75,9 @@ class Index extends Component {
 
     return (
       <div>
-        <form action="../export" method="post">
-          <p>year: <input type="text" name="year" value={2016} /></p>
-          <p>data: <input type="text" name="data" value={JSON.stringify(data)} /></p>
-          <input type="submit" value="Submit" />
+        <form id="formExcel" action="../export" method="post" style={{ display: 'none'}}>
+          <input type="text" name="year" value={year} />
+          <input type="text" name="data" value={JSON.stringify(data)} />
         </form>
         <div style={{ padding: '20px 50px', minWidth: 800 }}>
           <Table

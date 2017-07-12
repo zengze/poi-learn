@@ -39,10 +39,7 @@ public class HomeController {
 
     @RequestMapping(value = "/export", method = { RequestMethod.GET, RequestMethod.POST })
     @ResponseBody
-    public void exportExcel(
-//                            @RequestParam("year") String year,
-//                            @RequestParam("data") String data,
-                            HttpServletRequest request,
+    public void exportExcel(HttpServletRequest request,
                             HttpServletResponse response,
                             HttpSession session) throws IOException {
 
@@ -52,7 +49,7 @@ public class HomeController {
         List<Home> excelList = JSON.parseObject(data, new TypeReference<List<Home>>() {});
 
         String path = session.getServletContext().getRealPath("/public/excel/test.xlsx");
-        String fileName = "测试.xlsx";
+        String fileName = "抚顺市水资源公报-" + year + "年抚顺市供水量.xlsx";
 
         InputStream instream = null;
         OutputStream outStream = null;
