@@ -6,11 +6,6 @@ module.exports = {
   plugins: [
     new CommonsChunkPlugin('common','common.js'),
     new ExtractTextPlugin("common.css"),
-    new WebPack.DefinePlugin({
-       "process.env": {
-          NODE_ENV: JSON.stringify("production")
-        }
-    }),
   ],
   entry: {
     home: './entry/home.js',
